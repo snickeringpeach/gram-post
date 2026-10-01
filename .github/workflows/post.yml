@@ -1,0 +1,42 @@
+# Posts the day's queued carousel to Instagram and Facebook. Runs on GitHub, not the Mac.
+# Two crons so 7:30 New York is covered across daylight time: 11:32 and 12:32 UTC.
+# post.py only posts once per item, so the second run is a no-op when the first posted.
+name: post
+on:
+  schedule:
+    - cron: "32 11 * * *"
+    - cron: "32 12 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "say what would post, post nothing"
+        type: boolean
+        default: true
+permissions:
+  contents: write
+concurrency:
+  group: post
+  cancel-in-progress: false
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: post
+        env:
+          META_PAGE_TOKEN: ${{ secrets.META_PAGE_TOKEN }}
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          META_IG_ID: ${{ secrets.META_IG_ID }}
+        run: python3 post.py ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+      - name: record what posted
+        if: always()
+        run: |
+          git config user.name "snickeringpeach"
+          git config user.email "snickeringpeach@users.noreply.github.com"
+          git add posted.json
+          git commit -m "posted $(TZ=America/New_York date +%Y-%m-%d)" || exit 0
+          git pull --rebase -q && git push
