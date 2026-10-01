@@ -34,8 +34,7 @@ def save(q, msg):
     if subprocess.run(["git", "-C", str(ROOT), "diff", "--cached", "--quiet"]).returncode == 0:
         print("nothing changed"); return
     subprocess.run(["git", "-C", str(ROOT), "commit", "-qm", msg], check=True)
-    subprocess.run("gh auth switch -u snickeringpeach >/dev/null 2>&1; git pull -q --rebase && git push -q; "
-                   "gh auth switch -u lfreaney >/dev/null 2>&1", shell=True, cwd=ROOT)
+    subprocess.run("git pull -q --rebase && git push -q", shell=True, cwd=ROOT)
     print("pushed")
 
 
