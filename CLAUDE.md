@@ -1,6 +1,6 @@
 # gram-post
 
-The Gazette's Instagram/Facebook posting. **As of Oct 1 2026 Metricool posts October** (blog 7195593; 7:30 AM ET; Instagram + Facebook); `queue.json` is empty on purpose. Read METRICOOL.md. Common rules: ~/Projects/START.md.
+The Gazette's Instagram/Facebook posting. **Metricool is no longer used (Liam, Oct 25 2026).** Posts are scheduled in Meta Business Suite's planner; the November carousels are built by quackery-gazette's `./november`. `queue.json` stays empty on purpose. METRICOOL.md is history. Common rules: ~/Projects/START.md.
 
 - `images/<slug>/NN.jpg` are the slides Metricool pulls by raw.githubusercontent.com URL at publish time. **Never delete or rename them.**
 - Metricool free plan: 20 posts a month.
