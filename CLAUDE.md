@@ -1,6 +1,6 @@
 # gram-post
 
-The Gazette's Instagram/Facebook posting. **Metricool is no longer used (Liam, Oct 25 2026).** Posts are scheduled in Meta Business Suite's planner; the November carousels are built by quackery-gazette's `./november`. `queue.json` stays empty on purpose. METRICOOL.md is history. Common rules: ~/Projects/START.md.
+The Gazette's Instagram/Facebook posting. **Metricool is no longer used (Liam, Oct 25 2026).** Since Nov 8 2026 (Liam: "connect it") posting runs through this repo's Meta API poster again: `queue.json` holds November (Nov 9–30), images in `images/<slug>/`. The Meta planner by hand is the fallback. November carousels are built by quackery-gazette's `./november`. METRICOOL.md is history. Common rules: ~/Projects/START.md.
 
 - `images/<slug>/NN.jpg` are the slides Metricool pulls by raw.githubusercontent.com URL at publish time. **Never delete or rename them.**
 - Metricool free plan: 20 posts a month.
