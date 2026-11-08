@@ -75,7 +75,13 @@ def post_instagram(urls, caption):
             wait_finished(k)
         c = call("POST", f"{IG}/media", media_type="CAROUSEL", children=",".join(kids), caption=caption)["id"]
     wait_finished(c)
-    return call("POST", f"{IG}/media_publish", creation_id=c)["id"]
+    for i in range(8):   # Meta often says FINISHED before publish will accept it (code 9007)
+        try:
+            return call("POST", f"{IG}/media_publish", creation_id=c)["id"]
+        except RuntimeError as err:
+            if "9007" not in str(err) or i == 7:
+                raise
+            time.sleep(15)
 
 
 def post_facebook(urls, caption):
